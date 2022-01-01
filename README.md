@@ -1,1 +1,1 @@
-# FPT_data_centric_competition
+# FPT data centric competition
