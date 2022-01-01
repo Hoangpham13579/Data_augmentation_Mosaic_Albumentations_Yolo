@@ -14,6 +14,7 @@ Following Reinforcement Learning Competition 2021 success, DataComp is a brand n
 - **Achieve top 20/400 teams (highest 5%)** having the highest score validated on the private test dataset
 - Our wAP@0.5 score on private test: **0.545**
 - Team name: "nan"
+- Leaderboard link: https://datacomp.io/bang-xep-hang-cuoi-cung 
 
 ## Methods
 We tried many different data augmentation from the basic types such as rotation, shearing, ... to some quite advance techniques such as mosaic, random safe crop,... The library that we're using [`albumentation`](https://albumentations.ai/) 
