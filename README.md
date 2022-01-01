@@ -11,7 +11,7 @@ Following Reinforcement Learning Competition 2021 success, DataComp is a brand n
 
 
 ## Our performance
-- **Achieve top 20/400 teams (highest 5%)** having the highest score validated on the private test dataset
+- **Achieve top 20/400 teams (5% highest team)** having the highest score validated on the private test dataset
 - Our wAP@0.5 score on private test: **0.545**
 - Team name: "nan"
 - Leaderboard link: https://datacomp.io/bang-xep-hang-cuoi-cung 
