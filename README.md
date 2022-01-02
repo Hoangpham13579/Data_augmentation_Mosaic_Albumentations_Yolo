@@ -1,4 +1,4 @@
-# FPT data centric competition
+# FPT data centric competition (Top 20/400)
 ![alt text](https://github.com/HarryPham0123/FPT_data_centric_competition/blob/main/images/introduction.png?raw=true)
 
 ## Introduction
