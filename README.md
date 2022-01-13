@@ -21,6 +21,7 @@ Following Reinforcement Learning Competition 2021 success, DataComp is a brand n
 - [KNN folder](https://github.com/HarryPham0123/FPT_data_centric_competition/tree/main/KNN_application): folder contained notebook applying KNN technique to cluster the set of images into a specific upnique group with the same characteristic
 - [Mosaic folder](https://github.com/HarryPham0123/FPT_data_centric_competition/tree/main/Mosaic_augmentation): contain the notebook to construct & visualize the mosaic images augmentation
 - [main](https://github.com/HarryPham0123/FPT_data_centric_competition/tree/main/main): folder contained notebook to do the experiment with different types of augmentation to conduct the below final augmented combination
+- [Utils notebook](https://github.com/HarryPham0123/FPT_data_centric_competition/blob/main/Utils.ipynb): a notebook contained all the functions relating to copy, delete, transfer images & labels from a folder to another folder in Google Drive cloud
 
 ## Methods
 We tried many different data augmentation from the basic types such as rotation, shearing, ... to some quite advance techniques such as mosaic, random safe crop,... The library that we're using [`albumentation`](https://albumentations.ai/)
