@@ -4,7 +4,7 @@
 ## Introduction
 Deep Learning models have become exceedingly developed and popular in recent years. On the other hand, data processing techniques have not been equally developed compared to models
 
-In this competition, participants are provided with a dataset. The goal is to use processing techniques on that dataset to ensure that model achieves the best performance after training.
+In this competition, participants are provided with a dataset. The goal is to use processing techniques on that dataset to ensure that model achieves the best performance after training.  
 
 Following Reinforcement Learning Competition 2021 success, DataComp is a brand new competition with a new approach for researchers. Besides that, DataComp was created to contribute to the prevention of Covid-19 pandemic, using face mask recognition model.
 - Competition link: https://datacomp.io/gioi-thieu
@@ -51,6 +51,11 @@ Consequently, the combination of these below technqiues result to the final high
 
 ## KNN ultilization ([KNN folder](https://github.com/HarryPham0123/FPT_data_centric_competition/tree/main/KNN_application))
 1. Briefly instroduce about KNN
+- KNN is the algorithm to cluster the unlabeled data, use in unsupervised learning. It cluster the group based on the distance between feature point.
 2. The application of KNN in our solution
 - Used to construct as general as possible validation dataset
 - Categorize type of images in training set to faster filter images with specific feature, characteristic (Ex: Img having people behide doors, img having people wearing different types of masks)
+- To do so, first of all we compute the feature map to reduce the dimensionality and extract the important for images. We use VGG16 pretrained model to extract the feature map. 
+- We review all the images in data training and see that, the difference in brightness and contrast can be in different concept of image (The image in working room is brighter than image in hallway). So that, we convert all the images into grayscale image and then brings it into VGG16 to extract the feature map.
+- From (224,224,1) -> VGG16 model -> (4096,). Our training dataset has 937 images, so we forward all 937 image through vgg16 model, and get the (937,4096) features map.
+- At this point we can truly use Kmean algorithm in Sklearn to cluster the feature maps into 20 groups. However, the feature size 4096 is big and isn't efficient, we would like to reduce again this dimension into only 10 by PCA (Sklearn). 
