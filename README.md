@@ -1,61 +1,30 @@
-# FPT data centric competition (Top 20/400)
-![alt text](https://github.com/HarryPham0123/FPT_data_centric_competition/blob/main/images/introduction.png?raw=true)
+# Data Augmentation Mosaic Albumentation (YOLO format)
+This repository contributes the code to construct, visualize and save augmented images, namely Mosaic, CutOut, Random Crop (keep bbox safe), Shearing, Rotation, etc. by using `Albumentation` and `Mosaic` implementation
 
-## Introduction
-Deep Learning models have become exceedingly developed and popular in recent years. On the other hand, data processing techniques have not been equally developed compared to models
+## Prerequisite
+Please change the path in the 1st cell of each notebook to path in your local computer
 
-In this competition, participants are provided with a dataset. The goal is to use processing techniques on that dataset to ensure that model achieves the best performance after training.  
+## Folder `notebooks` contains
+- [Mosaic_Augmentation.ipynb](https://github.com/HarryPham0123/FPT_data_centric_competition/tree/main/Augmentation_visualization): construct, visualize and save mosaic images base on `dataset` folder
+- [Albumentation_Visualization.ipynb](https://github.com/HarryPham0123/FPT_data_centric_competition/tree/main/KNN_application): Apply, visualize multiple augmentation techniques, such as Random Crop (keep bbox safe), Cut Out, Channel Dropping, Rotation, Shearing, Guassian Noise,...
+- [Kmeans_Cluster_Images.ipynb](https://github.com/HarryPham0123/FPT_data_centric_competition/tree/main/main): Using Kmeans to cluster images based on images' features extracted from VGG19 model
 
-Following Reinforcement Learning Competition 2021 success, DataComp is a brand new competition with a new approach for researchers. Besides that, DataComp was created to contribute to the prevention of Covid-19 pandemic, using face mask recognition model.
+## Example
+The library that we're using [`albumentation`](https://albumentations.ai/) and Mosaic from [`Yolov5`](https://github.com/ultralytics/yolov5)
 
+**Mosaic** augmentation with YOLO label format
+<img src="./others/mosaic.png" alt="drawing" width="600" height="300"/>
 
+**Channel Dropout** augmentation with YOLO label format
+<img src="./others/channelDropout.png" alt="drawing" width="600" height="300"/>
 
-## Our performance
-- **Achieve top 20/400 teams (5% highest team)** having the highest score validated on the private test dataset
-- Our wAP@0.5 score on private test: **0.545**
-- Team name: "nan"
-- Leaderboard link: https://datacomp.io/bang-xep-hang-cuoi-cung 
+**Cut Out** augmentation with YOLO label format
+<img src="./others/cutOut.png" alt="drawing" width="600" height="300"/>
 
-## Github construction
-- [Albumentation folder](https://github.com/HarryPham0123/FPT_data_centric_competition/tree/main/Augmentation_visualization): folder contains notebook visualization of dataset applied Albumentation library & notebook to create & save those augmented images into a specific folder
-- [KNN folder](https://github.com/HarryPham0123/FPT_data_centric_competition/tree/main/KNN_application): folder contained notebook applying KNN technique to cluster the set of images into a specific upnique group with the same characteristic
-- [Mosaic folder](https://github.com/HarryPham0123/FPT_data_centric_competition/tree/main/Mosaic_augmentation): contain the notebook to construct & visualize the mosaic images augmentation
-- [main](https://github.com/HarryPham0123/FPT_data_centric_competition/tree/main/main): folder contained notebook to do the experiment with different types of augmentation to conduct the below final augmented combination
-- [Utils notebook](https://github.com/HarryPham0123/FPT_data_centric_competition/blob/main/Utils.ipynb): a notebook contained all the functions relating to copy, delete, transfer images & labels from a folder to another folder in Google Drive cloud
+**Random crop but keep bbox safe** augmentation with YOLO label format
+<img src="./others/RandomSizedBBoxSafeCrop.png" alt="drawing" width="600" height="300"/>
 
-## Methods
-We tried many different data augmentation from the basic types such as rotation, shearing, ... to some quite advance techniques such as mosaic, random safe crop,... The library that we're using [`albumentation`](https://albumentations.ai/)
+## Reference
+[Albumentation](https://albumentations.ai/)
 
-Consequently, the combination of these below technqiues result to the final highest score in our case:
-- **Train dataset** -> `934 images` after relabeled to make sure the correctness is more than 99% <br>
-- **Validation dataset** -> `154 images` (design an as much as general set by ultilizing KNN technique which is explained below!)
-- **toGray augmentation** -> `100 images`
-- **CutOut + HorizontalFlip (p=0.5)** -> `400 images`
-<img src="./images/albu_cutout.png" alt="drawing" width="600" height="400"/>
-
-- Filter only **incorrect-mask label images + HorizontalFlip (p=0.7)** -> `200 images`
-<br>- **Mosaic augmentation** -> `451 images`
-(Note: after do the mosaic augmentation, it's crucial to check the set again to exclude all images having poor-quality bboxes at the edge of each image)
-<img src="./images/mosaic1.png" alt="drawing" width="1000" height="800"/>
-
-- **Rotation + Shear** (prob 50/50) -> `600 images`
-  - **Rotation + Shear** (prob 50/50) with no-mask & mask only -> `200 images`
-<img src="./images/albu_rotation.png" alt="drawing" width="600" height="400"/>
-
-  - Remaining images augmented normally -> `400 images`
-<img src="./images/albu_shearing.png" alt="drawing" width="600" height="400"/>
-
-- B.c model perform poorly with images having people appeared behide the door. Therefore, filter & augment specificailly those images in training dataset -> `100 images`
-
---> `TOTAL 2939 augmentation images` to submit (training + validation)
-
-## KNN ultilization ([KNN folder](https://github.com/HarryPham0123/FPT_data_centric_competition/tree/main/KNN_application))
-1. Briefly instroduce about KNN
-- KNN is the algorithm to cluster the unlabeled data, use in unsupervised learning. It cluster the group based on the distance between feature point.
-2. The application of KNN in our solution
-- Used to construct as general as possible validation dataset
-- Categorize type of images in training set to faster filter images with specific feature, characteristic (Ex: Img having people behide doors, img having people wearing different types of masks)
-- To do so, first of all we compute the feature map to reduce the dimensionality and extract the important for images. We use VGG16 pretrained model to extract the feature map. 
-- We review all the images in data training and see that, the difference in brightness and contrast can be in different concept of image (The image in working room is brighter than image in hallway). So that, we convert all the images into grayscale image and then brings it into VGG16 to extract the feature map.
-- From (224,224,1) -> VGG16 model -> (4096,). Our training dataset has 937 images, so we forward all 937 image through vgg16 model, and get the (937,4096) features map.
-- At this point we can truly use Kmean algorithm in Sklearn to cluster the feature maps into 20 groups. However, the feature size 4096 is big and isn't efficient, we would like to reduce again this dimension into only 10 by PCA (Sklearn). 
+[Yolov5](https://github.com/ultralytics/yolov5)
